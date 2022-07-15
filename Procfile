@@ -1,1 +1,1 @@
-web: gunicorn saaschurn:app
+web: gunicorn app:app
