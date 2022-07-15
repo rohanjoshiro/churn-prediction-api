@@ -8,7 +8,7 @@ MarkupSafe==2.0.1
 typing-extensions==4.0.1
 Werkzeug==2.0.2
 zipp==3.6.0
-numpy=1.23.0
-pandas=1.4.3
-Saaschurnpredictor=0.0.1
+numpy==1.23.0
+pandas==1.4.3
+Saaschurnpredictor==0.0.1
 
