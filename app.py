@@ -5,12 +5,14 @@ from flask import Flask, request, jsonify, render_template
 import Saaschurnpredictor
 import os
 
+
+
 app = Flask(__name__)
 
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index1.html')
 
 @app.route('/predict',methods=['POST'])
 def predict():
@@ -19,10 +21,10 @@ def predict():
     '''
     paths = [str(x) for x in request.form.values()]
     final_features = paths
-    dt=pd.read_csv(final_features[1],index_col= False)
+    dt=pd.read_csv(os.path.abspath(final_features[1]),index_col= False)
     dt_dict = (dt).to_dict(orient='records')
-    df = pd.read_csv(final_features[0],dtype=dt_dict[0])
-    path=pathlib.Path(final_features[0]).parent.resolve()
+    df = pd.read_csv(os.path.abspath(final_features[0]),dtype=dt_dict[0])
+    path=pathlib.Path(os.path.abspath(final_features[0])).parent.resolve()
     co=len(df.columns)
     df.columns = df.columns.str.lower().str.replace(' ', '_')
 
@@ -46,8 +48,9 @@ def predict():
 
     df3.to_csv(os.path.join(path, 'prediction.csv'))
     
-    return render_template('index.html', prediction_text="you prediction file is stored in the same folder as of python file. Out of "+str(total)+" customers,"+str(churning)+" customers are expected to churn")
+    return render_template('index1.html', prediction_text="you prediction file is stored in the same folder as of dataset csv file. Out of "+str(total)+" customers,"+str(churning)+" customers are expected to churn")
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=5000)
+    app.run(debug=True)
+    
